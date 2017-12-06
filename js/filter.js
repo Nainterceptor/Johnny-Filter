@@ -1,29 +1,29 @@
 /*
- * Trump Filter - Content Script
+ * Johnny Hallyday Filter - Content Script
  *
- * This is the primary JS file that manages the detection and filtration of Donald Trump from the web page.
+ * This is the primary JS file that manages the detection and filtration of Johnny Hallyday from the web page.
  */
 
 // Variables
-var regex = /Trump/i;
+var regex = /Johnny/i;
 var search = regex.exec(document.body.innerText);
 
-var selector = ":contains('Trump'), :contains('TRUMP'), :contains('trump')";
+var selector = ":contains('Johnny'), :contains('JOHNNY'), :contains('johnny')";
 
 
 // Functions
 function filterMild() {
-	console.log("Filtering Trump with Mild filter...");
+	console.log("Filtering Johnny Hallyday with Mild filter...");
 	return $(selector).filter("h1,h2,h3,h4,h5,p,span,li");
 }
 
 function filterDefault () {
-	console.log("Filtering Trump with Default filter...");
+	console.log("Filtering Johnny Hallyday with Default filter...");
 	return $(selector).filter(":only-child").closest('div');
 }
 
 function filterVindictive() {
-	console.log("Filtering Trump with Vindictive filter...");
+	console.log("Filtering Johnny Hallyday with Vindictive filter...");
 	return $(selector).filter(":not('body'):not('html')");
 }
 
@@ -47,15 +47,15 @@ function filterElements(elements) {
 
 // Implementation
 if (search) {
-   console.log("Donald Trump found on page! - Searching for elements...");
+   console.log("Johnny Hallyday found on page! - Searching for elements...");
    chrome.storage.sync.get({
      filter: 'aggro',
    }, function(items) {
 	   console.log("Filter setting stored is: " + items.filter);
 	   elements = getElements(items.filter);
 	   filterElements(elements);
-	   chrome.runtime.sendMessage({method: "saveStats", trumps: elements.length}, function(response) {
-			  console.log("Logging " + elements.length + " trumps.");
+	   chrome.runtime.sendMessage({method: "saveStats", johnnys: elements.length}, function(response) {
+			  console.log("Logging " + elements.length + " johnnys.");
 		 });
 	 });
   chrome.runtime.sendMessage({}, function(response) {});
